@@ -22,6 +22,7 @@ class UserAPI extends DataSource {
    * have to be. If the user is already on the context, it will use that user
    * instead
    */
+ //与えられた email を用いてデータベースから user を探すか、もしくは作成します。 
   async findOrCreateUser({ email: emailArg } = {}) {
     const email =
       this.context && this.context.user ? this.context.user.email : emailArg;
