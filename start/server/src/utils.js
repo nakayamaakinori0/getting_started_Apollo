@@ -1,5 +1,5 @@
 const SQL = require('sequelize');
-
+// TODO: 理解する
 module.exports.paginateResults = ({
   after: cursor,
   pageSize = 20,

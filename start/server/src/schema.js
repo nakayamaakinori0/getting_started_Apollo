@@ -3,10 +3,32 @@ const  { gql } = require("apollo-server");
 const typeDefs = gql`
   # ここにスキーマを書きます
   type Query {
-    launches: [Launch]!
+    launches(
+      """
+      The number of results to show. Must be >= 1. Default = 20
+      """
+      pageSize: Int
+      """
+      If you add cursorhere, it will only return results after this cursor
+      """
+      after: String
+    ): LaunchConnection!
     launch(id: ID!): Launch
-    # Queries for the current user
     me: User
+  }
+  """
+  Simple wrapper around our list of launches that contains a cursor to the
+  last item in the list. Pass this cursor to the launches query to fetch results
+  after these.
+  """
+  type LaunchConnection {
+    cursor: String!
+    hasMore: Boolean!
+    launches: [Launch]!
+  }
+  type Mission {
+    # ... with rest of schema
+    missionPatch(mission: String, size: PatchSize): String
   }
   type Launch {
     id: ID!
@@ -38,7 +60,7 @@ const typeDefs = gql`
     bookTrips(launchIds: [ID]!): TripUpdateResponse!
 
     # if false, cancellation failed -- check errors
-    cancelTrip(launcheId: ID!): TripUpdateResponse!
+    cancelTrip(launchId: ID!): TripUpdateResponse!
 
     login(email: String): String # login token
   }
