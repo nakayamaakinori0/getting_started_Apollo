@@ -12,9 +12,13 @@ const offset = 97; // letter A's charcode is 97
 const avatars = [dog1, dog2, dog3];
 const maxIndex = avatars.length - 1;
 
+// この関数は、ユーザーのメールアドレスからアバターを選択する
 function pickAvatarByEmail(email: string) {
+  // メールアドレスの最初の文字を取得する
   const charCode = email.toLowerCase().charCodeAt(0) - offset;
+  // この文字をアバターの数に変換する
   const percentile = Math.max(0, Math.min(max, charCode)) / max;
+  // パーセンタイルを使用してアバターを選択する
   return avatars[Math.round(maxIndex * percentile)];
 }
 
@@ -24,6 +28,9 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ image, children = 'Space Explorer' }) => {
+  // emailは、トークンをデコードして取得する
+  // atobは、base64エンコードされた文字列をデコードする
+// localStorage.getItem('token')は、トークンを取得する
   const email = window.atob(localStorage.getItem('token') as string);
   const avatar = image || pickAvatarByEmail(email);
 
@@ -55,6 +62,7 @@ const Image = styled('img')(size(134), (props: { round: boolean }) => ({
   borderRadius: props.round ? '50%' : '0%',
 }));
 
+// subheadingは、ヘッダーの下に表示されるテキスト
 const Subheading = styled('h5')({
   marginTop: unit / 2,
   color: colors.textSecondary,
