@@ -35,7 +35,7 @@ module.exports = {
   },
   Launch: {
     isBooked: async (launch, _, { dataSources }) => {
-      dataSources.userAPI.isBookedOnLaunch({ launchId: launch.id });
+      return dataSources.userAPI.isBookedOnLaunch({ launchId: launch.id });
     },
   },
   User: {
