@@ -56,7 +56,10 @@ module.exports = {
   Mutation: {
     login: async (_, { email }, { dataSources }) => {
       const user = await dataSources.userAPI.findOrCreateUser({ email });
-      if (user) return Buffer.from(email).toString("base64");
+      if (user) {
+        user.token = Buffer.from(email).toString("base64");
+        return user;
+      }
     },
     bookTrips: async (_, { launchIds }, { dataSources }) => {
       const results = await dataSources.userAPI.bookTrips({ launchIds });

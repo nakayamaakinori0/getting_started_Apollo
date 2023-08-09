@@ -46,6 +46,7 @@ const typeDefs = gql`
     id: ID!
     email: String!
     trips: [Launch]!
+    token: String
   }
   type Mission {
     name: String
@@ -62,7 +63,7 @@ const typeDefs = gql`
     # if false, cancellation failed -- check errors
     cancelTrip(launchId: ID!): TripUpdateResponse!
 
-    login(email: String): String # login token
+    login(email: String): User # login token
   }
   type TripUpdateResponse {
     success: Boolean!
