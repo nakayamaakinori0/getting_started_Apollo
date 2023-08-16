@@ -33,7 +33,8 @@ function IsLoggedIn() {
 // Initialize ApolloClient
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache,
-  uri: "http://localhost:4999/graphql",
+  // uri: "http://localhost:4999/graphql",
+  uri: "https://getting-started-apollo-server-9c01bc1d6f87.herokuapp.com/graphql",
   headers: {
     authorization: localStorage.getItem("token") || "",
   },
